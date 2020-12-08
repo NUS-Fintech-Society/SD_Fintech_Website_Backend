@@ -29,3 +29,7 @@ python manage.py migrate
 ```
 python manage.py startapp <app_name>
 ```
+
+## Admin Site Credentials
+username: admin
+password: nusfintechsoc
