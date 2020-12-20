@@ -15,6 +15,17 @@ class DepartmentListView(APIView):
         serializer = DepartmentSerializer(departments, many=True)
         return Response(serializer.data)
 
+class DepartmentDetailsView(APIView):
 
+  def get_object(self, id):
+    try:
+      return Department.objects.get(id=id)
+    except Department.DoesNotExist:
+      return Response(status=status.HTTP_404_NOT_FOUND)
+
+  def get(self, request, id):
+    event = self.get_object(id)
+    serializer = DepartmentSerializer(event)
+    return Response(serializer.data)
 #def index(request):
  #   return HttpResponse("Departments page here")
