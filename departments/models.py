@@ -6,3 +6,6 @@ class Department(models.Model):
     description = models.CharField(max_length=1000)
     #icon = models.
     #route = models.
+
+    def __str__(self):
+        return self.name
