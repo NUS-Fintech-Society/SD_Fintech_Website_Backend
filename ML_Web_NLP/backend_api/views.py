@@ -82,14 +82,3 @@ def companyNegativeHeadlines(request, company, start, end):
             mostNegativeNews.append(row['title'])
     return JsonResponse(list(mostNegativeNews), safe = False)
  
-
-'''
-def index(request):
-    responseData = {
-        'id': 4,
-        'name': 'Test Response',
-        'roles' : ['Admin','User']
-    }
-
-    return HttpResponse(json.dumps(responseData), content_type="application/json")
-'''
