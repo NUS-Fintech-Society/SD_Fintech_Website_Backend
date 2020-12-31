@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'contact',
     'events',
-    'departments'
+    'departments',
+    'projects'
 ]
 
 MIDDLEWARE = [
@@ -125,5 +126,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True

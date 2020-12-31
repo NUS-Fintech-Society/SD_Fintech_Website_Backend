@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.apiOverview, name="api-overview"),
     path('', include('contact.urls')),
     path('', include('events.urls')),
-    path('', include('departments.urls'))
+    path('', include('departments.urls')),
+    path('', include('projects.urls'))
 ]
