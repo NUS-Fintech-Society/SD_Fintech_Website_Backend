@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import Project, ProjectImageUrls
+from .models import Project, ProjectImageUrl
 
 
-class ProjectSerializer(serializers.ProjectSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class ProjectImageUrlSerializer(serializers.ProjectImageUrlSerializer):
+class ProjectImageUrlSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProjectImageUrls
+        model = ProjectImageUrl
         fields = '__all__'
