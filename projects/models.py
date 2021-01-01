@@ -6,7 +6,8 @@ from departments.models import Department
 class Project(models.Model):
     title = models.CharField(max_length=50)
     details = models.TextField()
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(
+        Department, on_delete=models.CASCADE, related_name='projects')
 
     def __str__(self):
         return '[' + self.department.name + '] ' + self.title
