@@ -14,7 +14,7 @@ class ProjectListView(APIView):
     def get(self, request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.projects)
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = ProjectSerializer(data=request.data)
@@ -37,4 +37,12 @@ class ProjectDetailsView(APIView):
     def get(self, request, id):
         project = self.get_object(id)
         serializer = ProjectSerializer(project)
+        return Response(serializer.data)
+
+
+class DepartmentProjects(APIView):
+
+    def get(self, request, id):
+        projects = Project.objects.filter(department=id)
+        serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
