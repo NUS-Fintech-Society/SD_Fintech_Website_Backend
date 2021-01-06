@@ -1,5 +1,6 @@
 from django.db import models
 from departments.models import Department
+from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 
 
@@ -20,3 +21,6 @@ class ProjectImageUrl(models.Model):
 
     def __str__(self):
         return '[' + self.project.department.name + '] ' + self.project.title + ' ' + str(self.id)
+
+    class Meta:
+        verbose_name = _("Project Image")
