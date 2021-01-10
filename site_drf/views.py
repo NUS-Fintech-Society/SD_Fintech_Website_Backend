@@ -13,7 +13,7 @@ def apiOverview(request):
         'List, Projects done by the Society': '/projects/',
         'View Project Details': '/projects/<id>/',
         'List, Projects done by a specific department': '/projects/department/<deptId>/',
-        'View, all Deparments': '/departments/',
+        'View, all Departments': '/departments/',
         'View, Department Details': '/departments/<id>/',
     }
 
