@@ -50,10 +50,23 @@ def companyPositiveScores(request, company, start, end):
         total_scores = 0
         positive_scores = 0
         for row in data:
-            if row['score'] > 0:
+            if row['score'] > 0.0005:
                 positive_scores += 1
             total_scores += 1
-    return JsonResponse(positive_scores/total_scores, safe = False)
+        final_score = round(positive_scores/total_scores, 3)
+    return JsonResponse(final_score, safe = False)
+
+def companyNeutralScores(request, company, start, end):
+    if request.method == 'GET':
+        data = headlines.objects.filter(company_name=company).filter(date_posted__gte = start).filter(date_posted__lte = end).values()
+        total_scores = 0
+        neutral_scores = 0
+        for row in data:
+            if (row['score'] < 0.0005) & (row['score'] > -0.0005):
+                neutral_scores += 1
+            total_scores += 1
+        final_score = round(neutral_scores/total_scores, 3)
+    return JsonResponse(final_score, safe = False)
 
 def companyNegativeScores(request, company, start, end):
     if request.method == 'GET':
@@ -61,10 +74,22 @@ def companyNegativeScores(request, company, start, end):
         total_scores = 0
         negative_scores = 0
         for row in data:
-            if row['score'] < 0:
+            if row['score'] < -0.0005:
                 negative_scores += 1
             total_scores += 1
-    return JsonResponse(negative_scores/total_scores, safe = False)
+        final_score = round(negative_scores/total_scores, 3)
+    return JsonResponse(final_score, safe = False)
+
+def companyAverageSentiment(request, company, start, end):
+    if request.method == 'GET':
+        data = headlines.objects.filter(company_name=company).filter(date_posted__gte = start).filter(date_posted__lte = end).values()
+        total_scores = 0
+        total_count = 0
+        for row in data:
+            total_scores += row['score']
+            total_count += 1
+        final_score = round(total_scores/total_count, 3)
+    return JsonResponse(final_score, safe = False)
 
 def companyPositiveHeadlines(request, company, start, end):
     if request.method == 'GET':
