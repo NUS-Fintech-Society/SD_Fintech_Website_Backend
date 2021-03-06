@@ -18,7 +18,8 @@ urlpatterns = [
     path('neutral_scores/<str:company>/<date:start>/<date:end>', views.companyNeutralScores),
     path('average_sentiment/<str:company>/<date:start>/<date:end>', views.companyAverageSentiment),
     path('top_positive_news/<str:company>/<date:start>/<date:end>', views.companyPositiveHeadlines),
-    path('top_negative_n\ews/<str:company>/<date:start>/<date:end>', views.companyNegativeHeadlines),
+    path('top_negative_news/<str:company>/<date:start>/<date:end>', views.companyNegativeHeadlines),
+    path('get_companies', views.getCompanies),
 ]
 
 #A router works with a viewset to route requests. It points to the viewset.

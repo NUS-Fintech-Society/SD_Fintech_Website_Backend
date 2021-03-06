@@ -8,8 +8,14 @@ class companies(models.Model):
         return self.company_name
 
 class headlines(models.Model):
-    #question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    #question = models.ForeignKey(Question, on_delete=models.CASCADE)]
+    # company_id = models.OneToOneField(
+    #     companies,
+    #     primary_key=True,
+    #     on_delete=models.CASCADE
+    # )
     company_name = models.ForeignKey(companies, on_delete = models.CASCADE) #When company in companies table is deleted, we delete all the headlines corresponding to it
+    #company_name = models.CharField(max_length=5000, blank = False) #When company in companies table is deleted, we delete all the headlines corresponding to it
     title = models.CharField(max_length=5000, blank = False)
     date_posted = models.DateField(blank = False)
     week = models.IntegerField(blank = False)
