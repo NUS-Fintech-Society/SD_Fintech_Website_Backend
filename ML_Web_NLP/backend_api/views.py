@@ -81,7 +81,10 @@ def companyPositiveScores(request, company, start, end):
             if row['score'] > 0.0005 :
                 positive_scores += 1
             total_scores += 1
-        final_score = round(positive_scores/total_scores, 3)
+        if total_scores == 0:
+            final_score = 0
+        else:
+            final_score = round(positive_scores/total_scores, 3)
     return JsonResponse(final_score, safe = False)
 
 def companyNeutralScores(request, company, start, end):
@@ -93,7 +96,10 @@ def companyNeutralScores(request, company, start, end):
             if (row['score'] < 0.0005) & (row['score'] > -0.0005):
                 neutral_scores += 1
             total_scores += 1
-        final_score = round(neutral_scores/total_scores, 3)
+        if total_scores == 0:
+            final_score = 0
+        else:
+            final_score = round(neutral_scores/total_scores, 3)
     return JsonResponse(final_score, safe = False)
 
 def companyNegativeScores(request, company, start, end):
@@ -104,8 +110,11 @@ def companyNegativeScores(request, company, start, end):
         for row in data:
             if row['score'] < -0.0005:
                 negative_scores += 1
-            total_scores += 1
-        final_score = round(negative_scores/total_scores, 3)
+            total_scores+=1
+        if total_scores == 0:
+            final_score = 0
+        else:
+            final_score = round(negative_scores/total_scores, 3)
     return JsonResponse(final_score, safe = False)
 
 def companyAverageSentiment(request, company, start, end):
@@ -116,7 +125,10 @@ def companyAverageSentiment(request, company, start, end):
         for row in data:
             total_scores += row['score']
             total_count += 1
-        final_score = round(total_scores/total_count, 3)
+        if total_count == 0:
+            final_score = 0
+        else:
+            final_score = round(total_scores/total_count, 3)
     return JsonResponse(final_score, safe = False)
 
 def companyPositiveHeadlines(request, company, start, end):

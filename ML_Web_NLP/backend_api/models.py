@@ -26,4 +26,4 @@ class headlines(models.Model):
         return self.title
 
 
-# Create your models here.
+# Create your models here.  
