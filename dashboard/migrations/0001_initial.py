@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('week', models.IntegerField()),
                 ('year', models.IntegerField()),
                 ('score', models.FloatField()),
-                ('company_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend_api.companies')),
+                ('company_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.companies')),
             ],
         ),
     ]
