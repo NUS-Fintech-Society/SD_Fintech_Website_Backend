@@ -14,8 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, register_converter
+from datetime import datetime
+
 from . import views
+
+#Creating date custom path converter
+class DateConverter:
+    regex = '\d{4}-\d{2}-\d{2}'
+
+    def to_python(self, value):
+        return datetime.strptime(value, '%Y-%m-%d')
+
+    def to_url(self, value):
+        return value
+
+register_converter(DateConverter, 'date')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +37,6 @@ urlpatterns = [
     path('', include('contact.urls')),
     path('', include('events.urls')),
     path('', include('departments.urls')),
-    path('', include('projects.urls'))
+    path('', include('projects.urls')),
+    path('', include('dashboard.urls')),
 ]
