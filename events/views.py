@@ -3,13 +3,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework import permissions
 
 # Create your views here.
 from .serializers import EventSerializer
 from .models import Event
 
 class EventListView(APIView):
-
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  
   def get(self, request):
       events = Event.objects.all()
       serializer = EventSerializer(events, many=True)

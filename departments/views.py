@@ -3,19 +3,22 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework import permissions
 
 # Create your views here.
 from .serializers import DepartmentSerializer
 from .models import Department
 
 class DepartmentListView(APIView):
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def get(self, request):
-        departments = Department.objects.all()
-        serializer = DepartmentSerializer(departments, many=True)
-        return Response(serializer.data)
+  def get(self, request):
+      departments = Department.objects.all()
+      serializer = DepartmentSerializer(departments, many=True)
+      return Response(serializer.data)
 
 class DepartmentDetailsView(APIView):
+  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
   def get_object(self, id):
     try:
