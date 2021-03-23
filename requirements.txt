@@ -1,3 +1,6 @@
 django==3.1.4
 djangorestframework==3.12.2
 django-cors-headers
+python-decouple
+mysqlclient
+numpy
