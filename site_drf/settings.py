@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'site_drf.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # [START db_setup]
-if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
@@ -93,7 +93,7 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
             'NAME': 'main',
             'USER': 'admin',
             'PASSWORD': '5Pox3ofDe3hmME5h',
-            'HOST': '127.0.0.1',
+            'HOST': '/cloudsql/data-eye-289210:us-central1:fintech-website',
         }
     }
 else:
