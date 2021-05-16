@@ -93,7 +93,7 @@ if os.getenv('GAE_APPLICATION', None):
             'NAME': 'main',
             'USER': 'admin',
             'PASSWORD': '5Pox3ofDe3hmME5h',
-            'HOST': '/cloudsql/data-eye-289210:us-central1:fintech-website',
+            'HOST': '/cloudsql/data-eye-289210:asia-southeast1:fintech-website-instance',
         }
     }
 else:
@@ -110,19 +110,18 @@ else:
             'USER': 'admin',
             'PASSWORD': '5Pox3ofDe3hmME5h',
             'HOST': '127.0.0.1',
-            'PORT': '3306'
+            'PORT': '3307'
         }
     }
 # [END db_setup]
 
-# Use a in-memory sqlite3 database when testing in CI systems
-if os.getenv('TRAMPOLINE_CI', None):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-        }
+# Use a in-memory sqlite3 database when testing locally
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
