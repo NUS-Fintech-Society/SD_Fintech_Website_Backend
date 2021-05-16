@@ -23,12 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
+DB_USER = config("DB_USER")
+DB_PASSWORD = config("DB_PASSWORD")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -79,11 +80,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'site_drf.wsgi.application'
 
+# DATABASE SETUP
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# [START db_setup]
+# [PRODUCTION SETTINGS ON GOOGLE APP ENGINE]
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
@@ -91,11 +90,12 @@ if os.getenv('GAE_APPLICATION', None):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'main',
-            'USER': 'admin',
-            'PASSWORD': '5Pox3ofDe3hmME5h',
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
             'HOST': '/cloudsql/data-eye-289210:asia-southeast1:fintech-website-instance',
         }
     }
+# [RUNNING LOCALLY AND CONNECTING TO PRODUCTION CLOUDSQL DATABASE THROUGH CLOUD_SQL_PROXY INSTANCE]
 else:
     # Running locally so connect to either a local MySQL instance or connect to
     # Cloud SQL via the proxy. To start the proxy via command line:
@@ -107,21 +107,21 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'main',
-            'USER': 'admin',
-            'PASSWORD': '5Pox3ofDe3hmME5h',
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
             'HOST': '127.0.0.1',
             'PORT': '3307'
         }
     }
 # [END db_setup]
 
-# Use a in-memory sqlite3 database when testing locally
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-    }
-}
+# [RUNNING LOCALLY AND USING IN-MEMORY SQLITE3 DATABASE INSTEAD OF PRODUCTION CLOUDSQL DATABASE]
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
