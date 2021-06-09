@@ -18,13 +18,18 @@ pipenv shell
 pipenv install -r requirements.txt
 ```
 
-3. Obtain env file with the credentials for settings.py and place the env file in the root directory.
+3. Obtain env file from VP Tech or SD Director with the credentials for settings.py and place the env file in the root directory.
 
 ## Getting Started
 
 ### Running local server with connection to production database
 
-1. Ensure settings.py is correct, the following lines **SHOULD** be commented in site_drf/settings.py.
+1. Login to an authorised gcloud account. Currently, only VP Tech and SD Director are authorized. If there are urgent requests, feel free to let us know.
+```
+gcloud auth application-default login
+```
+
+2. Ensure settings.py is correct, the following lines **SHOULD** be commented in site_drf/settings.py.
 ```
 # [RUNNING LOCALLY AND USING IN-MEMORY SQLITE3 DATABASE INSTEAD OF PRODUCTION CLOUDSQL DATABASE]
 # DATABASES = {
@@ -35,16 +40,24 @@ pipenv install -r requirements.txt
 # }
 ```
 
-2. Start Cloud SQL Proxy on a separate terminal: ./cloud_sql_proxy -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:[PORT_NUMBER]
+3. Start Cloud SQL Proxy on a separate terminal: ./cloud_sql_proxy -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:[PORT_NUMBER]
+Ensure that you run the following code in the directory where you have installed Cloud SQL Proxy executable file.
+If you have not installed Cloud SQL proxy, you may refer [here](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test).
 ```
+// macOS & Linux
 ./cloud_sql_proxy -instances="data-eye-289210:asia-southeast1:fintech-website-instance"=tcp:3307
+
+// windows
+.\cloud_sql_proxy.exe -instances="data-eye-289210:asia-southeast1:fintech-website-instance"=tcp:3307
 ```
 
-3. Run server
+4. Run server
 ```
 pipenv shell
 python manage.py runserver
 ```
+
+5. To update database on production, enter in your browser url: data-eye-289210.df.r.appspot.com/admin. Obtain the id and password from VP Tech/ SD Director.
 
 ### Running local server with connection to local sqlite testing database
 1. Ensure settings.py is correct, the following lines **SHOULD NOT** be commented in site_drf/settings.py.
